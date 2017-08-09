@@ -44,6 +44,7 @@ public class UserDaoImpl implements UserDao{
 		
 	}
 	public User getUserByUsername(String username) {
+		System.out.println(username);
 		Session session = sessionFactory.getCurrentSession();
 		User user = (User) session.get(User.class, username);
 		return user;

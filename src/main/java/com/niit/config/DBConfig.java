@@ -5,7 +5,7 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
+import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,8 +37,8 @@ public class DBConfig {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("oracle.jdbc.OracleDriver");
 		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:XE");
-		dataSource.setUsername("collab");
-		dataSource.setPassword("collab");
+		dataSource.setUsername("collab3");
+		dataSource.setPassword("collab3");
 		return dataSource;
 	}
 	
