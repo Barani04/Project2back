@@ -57,7 +57,10 @@ public class UserController {
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public ResponseEntity<?> logout(HttpSession session) {
-
+		if(session.getAttribute("username")==null){
+			Error error = new Error(5, "UnAuthorized User");
+			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
+		}
 		String username = (String) session.getAttribute("username");
 		System.out.println(username);
 		User user = userdao.getUserByUsername(username);
@@ -67,5 +70,29 @@ public class UserController {
 		session.invalidate();
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
-
+	@RequestMapping(value="/getuser",method=RequestMethod.GET)
+	public ResponseEntity<?> getUser(HttpSession session) {
+		if(session.getAttribute("username")==null){
+			Error error = new Error(5, "UnAuthorized User");
+			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
+		}
+		String username = (String) session.getAttribute("username");
+		User user = userdao.getUserByUsername(username);
+		return new ResponseEntity<User>(user,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/updateuser",method=RequestMethod.PUT)
+	public ResponseEntity<?> updateUser(@RequestBody User user,HttpSession session){
+		if(session.getAttribute("username")==null){
+			Error error = new Error(5, "UnAuthorized User");
+			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
+		}
+		try{
+		userdao.update(user);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+		}catch (Exception e) {
+			Error error =new Error(6,"Unable to Edit Your Profile"+e.getMessage());
+			return new ResponseEntity<Error>(error,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }
