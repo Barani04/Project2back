@@ -91,7 +91,7 @@ public class UserController {
 		userdao.update(user);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 		}catch (Exception e) {
-			Error error =new Error(6,"Unable to Edit Your Profile"+e.getMessage());
+			Error error =new Error(6,"Unable to Edit Your Profile");
 			return new ResponseEntity<Error>(error,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
