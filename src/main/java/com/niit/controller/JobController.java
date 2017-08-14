@@ -1,5 +1,7 @@
 package com.niit.controller;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,32 +22,17 @@ import com.niit.model.User;
 public class JobController {
 	
 	@Autowired
-	private JobDao jobdao;
-	
-	@Autowired
 	private UserDao userdao;
 	
-	@RequestMapping(value="/savejob",method=RequestMethod.POST)
-	public ResponseEntity<?> saveJob(@RequestBody Job job,HttpSession session){
+	@RequestMapping(value="/getuser",method=RequestMethod.GET)
+	public ResponseEntity<?> getUser(HttpSession session) {
 		if(session.getAttribute("username")==null){
-			Error error = new Error(5, "Unauthorized User");
+			Error error = new Error(5, "UnAuthorized User");
 			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
 		}
 		String username = (String) session.getAttribute("username");
-		User user = userdao.getUserByUsername(username); 
-		if(user.getRole().equals("ADMIN")){
-			try{
-				jobdao.saveJob(job);
-				return new ResponseEntity<Job>(job,HttpStatus.OK);
-			}catch (Exception e) {
-				Error error = new Error(7,"Unable to Post Job");
-				return new ResponseEntity<Error>(error,HttpStatus.INTERNAL_SERVER_ERROR);
-			}
-		}
-		else{
-			Error error = new Error(6, "Access Denied");
-			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
-		}
-		
+		System.out.println(username);
+		User user = userdao.getUserByUsername(username);
+		return new ResponseEntity<User>(user,HttpStatus.OK);
 	}
 }

@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 /*Dispatcher-Servlet.xml*/
 @Configuration
 @EnableWebMvc /*instead of <mvc:annotation-driven> in xml page*/
-@ComponentScan(basePackages="com.niit") /*instead of <context:component-scan> in xml page*/
+@ComponentScan(basePackages="com.niit.*") /*instead of <context:component-scan> in xml page*/
 public class WebConfig extends WebMvcConfigurerAdapter {
 	public void addResourceHandlers(ResourceHandlerRegistry reg){
 		reg.addResourceHandler("/Resources/**")
