@@ -56,7 +56,7 @@ public class UserController {
 		return new ResponseEntity<User>(validuser, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	@RequestMapping(value = "/logout")
 	public ResponseEntity<?> logout(HttpSession session) {
 		if(session.getAttribute("username")==null){
 			Error error = new Error(5, "UnAuthorized User");
