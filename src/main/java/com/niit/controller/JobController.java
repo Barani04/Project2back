@@ -24,15 +24,41 @@ public class JobController {
 	@Autowired
 	private UserDao userdao;
 	
-	@RequestMapping(value="/getuser",method=RequestMethod.GET)
-	public ResponseEntity<?> getUser(HttpSession session) {
+	@Autowired
+	private JobDao jobdao;
+
+	
+	@RequestMapping(value="/savejob",method=RequestMethod.POST)
+	public ResponseEntity<?> saveJob(@RequestBody Job job,HttpSession session){
+		System.out.println("fggvirnfgbvfsdvgnsdvhsdb");
+		String username = (String) session.getAttribute("username");
+		System.out.println(username+"dfxcfcf");
+		
 		if(session.getAttribute("username")==null){
-			Error error = new Error(5, "UnAuthorized User");
+			System.out.println("cdbvuvchndvcdjvcdvn");
+			Error error = new Error(5, "Unauthorized User");
 			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
 		}
-		String username = (String) session.getAttribute("username");
-		System.out.println(username);
-		User user = userdao.getUserByUsername(username);
-		return new ResponseEntity<User>(user,HttpStatus.OK);
+		User user = userdao.getUserByUsername(username); 
+		if(user.getRole().equals("ADMIN")){
+			System.out.println("adjkcfndcghdc da");
+			try{
+				System.out.println("dbvbd cvhdbcvdcv dcvxdcv ");
+				job.setPostedOn(new Date());
+				System.out.println("dbvcdjncvAucjDACGHADCBD");
+				jobdao.saveJob(job);
+				System.out.println("cmdnhcjd bcbdx cv bxhvc xcbhvn z");
+				return new ResponseEntity<Job>(job,HttpStatus.OK);
+			}catch (Exception e) {
+				System.out.println("dvgcbdxc vgxhbcb vzhcnc");
+				Error error = new Error(7,"Unable to Post Job");
+				return new ResponseEntity<Error>(error,HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
+		else{
+			Error error = new Error(6, "Access Denied");
+			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
+		}
+		
 	}
 }
