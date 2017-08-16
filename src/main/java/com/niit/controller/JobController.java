@@ -29,28 +29,20 @@ public class JobController {
 
 	
 	@RequestMapping(value="/savejob",method=RequestMethod.POST)
-	public ResponseEntity<?> saveJob(@RequestBody Job job,HttpSession session){
-		System.out.println("fggvirnfgbvfsdvgnsdvhsdb");
-		String username = (String) session.getAttribute("username");
-		System.out.println(username+"dfxcfcf");
-		
-		if(session.getAttribute("username")==null){
-			System.out.println("cdbvuvchndvcdjvcdvn");
+	public ResponseEntity<?> saveJob(@RequestBody Job job,HttpSession session){		
+		String username = (String) session.getAttribute("username");		
+		if(session.getAttribute("username")==null){		
 			Error error = new Error(5, "Unauthorized User");
 			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
 		}
 		User user = userdao.getUserByUsername(username); 
 		if(user.getRole().equals("ADMIN")){
-			System.out.println("adjkcfndcghdc da");
 			try{
-				System.out.println("dbvbd cvhdbcvdcv dcvxdcv ");
-				job.setPostedOn(new Date());
-				System.out.println("dbvcdjncvAucjDACGHADCBD");
-				jobdao.saveJob(job);
-				System.out.println("cmdnhcjd bcbdx cv bxhvc xcbhvn z");
+				
+				job.setPostedOn(new Date());				
+				jobdao.saveJob(job);		
 				return new ResponseEntity<Job>(job,HttpStatus.OK);
 			}catch (Exception e) {
-				System.out.println("dvgcbdxc vgxhbcb vzhcnc");
 				Error error = new Error(7,"Unable to Post Job");
 				return new ResponseEntity<Error>(error,HttpStatus.INTERNAL_SERVER_ERROR);
 			}
