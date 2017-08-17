@@ -15,7 +15,7 @@ import javax.persistence.Temporal;
 public class Job {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private int jid;
 	
 	private String jobTitle;
 	@Lob
@@ -28,11 +28,12 @@ public class Job {
 	@Temporal(javax.persistence.TemporalType.DATE)
 	private Date postedOn;
 	
-	public int getId() {
-		return id;
+	
+	public int getJid() {
+		return jid;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setJid(int jid) {
+		this.jid = jid;
 	}
 	public String getJobTitle() {
 		return jobTitle;

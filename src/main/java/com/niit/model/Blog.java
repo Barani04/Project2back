@@ -18,7 +18,7 @@ public class Blog {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private int bid;
 	private String blogTitle;
 	@Lob
 	private String description;
@@ -27,11 +27,15 @@ public class Blog {
 	private User postedBy;
 	@Temporal(javax.persistence.TemporalType.DATE)
 	private Date postedOn;
-	public int getId() {
-		return id;
+	private boolean approved;
+	
+	
+	
+	public int getBid() {
+		return bid;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setBid(int bid) {
+		this.bid = bid;
 	}
 	public String getBlogTitle() {
 		return blogTitle;
@@ -56,6 +60,12 @@ public class Blog {
 	}
 	public void setPostedOn(Date postedOn) {
 		this.postedOn = postedOn;
+	}
+	public boolean isApproved() {
+		return approved;
+	}
+	public void setApproved(boolean approved) {
+		this.approved = approved;
 	}
 	
 }
