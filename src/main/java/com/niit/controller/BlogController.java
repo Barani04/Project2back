@@ -1,6 +1,7 @@
 package com.niit.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,5 +46,16 @@ public class BlogController {
 			Error error = new Error(7,"Unable to Post Blog");
 			return new ResponseEntity<Error>(error,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+	
+	@RequestMapping(value="/getblogs/{approved}")
+	public ResponseEntity<?> getBlogs(@PathVariable int approved,HttpSession session){
+		if(session.getAttribute("username")==null){
+			Error error = new Error(5, "Unauthorized User");
+			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
+		}
+		List<Blog> blogPosts=blogdao.getBlogs(approved);
+		return new ResponseEntity<List<Blog>>(blogPosts,HttpStatus.OK);
+		
 	}
 }
