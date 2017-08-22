@@ -19,6 +19,7 @@ import com.niit.dao.UserDao;
 import com.niit.model.Blog;
 import com.niit.model.Error;
 import com.niit.model.User;
+import com.niit.service.EmailService;
 
 @Controller
 public class BlogController {
@@ -28,6 +29,9 @@ public class BlogController {
 	
 	@Autowired
 	private UserDao userdao;
+	
+	@Autowired
+	private EmailService emailService;
 
 	
 	@RequestMapping(value="/saveblog",method=RequestMethod.POST)
@@ -79,6 +83,7 @@ public class BlogController {
 		Blog blog=blogdao.getBlog(bid);
 		blog.setApproved(true);
 		blogdao.updateBlog(blog);
+		emailService.approvedBlogsNotify(blog);
 		return new ResponseEntity<Blog>(blog,HttpStatus.OK);
 	}
 }

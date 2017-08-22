@@ -8,7 +8,7 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		// TODO Auto-generated method stub
-		return new Class[]{DBConfig.class};
+		return new Class[]{DBConfig.class,MailConfig.class};
 	}
 
 	@Override
