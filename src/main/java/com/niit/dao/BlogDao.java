@@ -10,4 +10,8 @@ public interface BlogDao {
 
 	List<Blog> getBlogs(int approved);
 
+	Blog getBlog(int id);
+
+	void updateBlog(Blog blog);
+
 }

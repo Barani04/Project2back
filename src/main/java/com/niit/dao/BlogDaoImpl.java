@@ -30,4 +30,17 @@ public class BlogDaoImpl implements BlogDao {
 		return query.list();
 	}
 
+	public Blog getBlog(int bid) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query=session.createQuery("from Blog where bid="+bid);
+		
+		return (Blog)query.uniqueResult();
+	}
+
+	public void updateBlog(Blog blog) {
+		Session session = sessionFactory.getCurrentSession();
+		session.update(blog);
+		
+	}
+
 }

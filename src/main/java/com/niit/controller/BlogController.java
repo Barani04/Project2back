@@ -28,6 +28,7 @@ public class BlogController {
 	
 	@Autowired
 	private UserDao userdao;
+
 	
 	@RequestMapping(value="/saveblog",method=RequestMethod.POST)
 	public ResponseEntity<?> saveBlog(@RequestBody Blog blog,HttpSession session){
@@ -57,5 +58,27 @@ public class BlogController {
 		List<Blog> blogPosts=blogdao.getBlogs(approved);
 		return new ResponseEntity<List<Blog>>(blogPosts,HttpStatus.OK);
 		
+	}
+	
+	@RequestMapping(value="/getblog/{id}",method=RequestMethod.GET)
+	public ResponseEntity<?> getBlog(@PathVariable("id") int bid,HttpSession session){
+		if(session.getAttribute("username")==null){
+			Error error = new Error(5, "Unauthorized User");
+			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
+		}
+		Blog blog =blogdao.getBlog(bid);
+		return new ResponseEntity<Blog>(blog,HttpStatus.OK) ;
+	}
+	
+	@RequestMapping(value="/approveblog/{id}",method=RequestMethod.POST)
+	public ResponseEntity<?> approveBlog(@PathVariable("id") int bid,HttpSession session){
+		if(session.getAttribute("username")==null){
+			Error error = new Error(5, "Unauthorized User");
+			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
+		}
+		Blog blog=blogdao.getBlog(bid);
+		blog.setApproved(true);
+		blogdao.updateBlog(blog);
+		return new ResponseEntity<Blog>(blog,HttpStatus.OK);
 	}
 }
