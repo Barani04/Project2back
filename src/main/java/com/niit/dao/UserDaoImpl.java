@@ -1,5 +1,7 @@
 package com.niit.dao;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.hibernate.Query;
@@ -48,6 +50,12 @@ public class UserDaoImpl implements UserDao{
 		Session session = sessionFactory.getCurrentSession();
 		User user = (User) session.get(User.class, username);
 		return user;
+	}
+	@SuppressWarnings("unchecked")
+	public List<User> getUsers(int activated) {
+		Session session =sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from User where activated="+activated);
+		return query.list();
 	}
 
 }

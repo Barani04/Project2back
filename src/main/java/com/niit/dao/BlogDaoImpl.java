@@ -24,6 +24,7 @@ public class BlogDaoImpl implements BlogDao {
 		session.save(blog);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Blog> getBlogs(int approved) {
 		Session session = sessionFactory.getCurrentSession();
 		Query query=session.createQuery("from Blog where approved="+approved);

@@ -57,7 +57,7 @@ public class EmailService {
 			helper = new MimeMessageHelper(mimeMsg, false, "text/html");
 			StringBuilder htmlMsg = new StringBuilder();
 			
-			htmlMsg.append("Dear <b>"+blog.getPostedBy().getFirstname()+"</b>,<br/>");
+			htmlMsg.append("Dear <strong>"+blog.getPostedBy().getFirstname()+"</strong>,<br/>");
 			htmlMsg.append("<p>Your Blog has been approved by Admin!<p>");
 			htmlMsg.append("<p>Keep Posting....!</p>");
 			

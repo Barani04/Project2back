@@ -23,6 +23,9 @@ public class User {
 	@Column(name="on_line")
 	private boolean online;
 	private String role;
+	
+	@Column(name="acc_activate")
+	private boolean activated;
 	public String getUsername() {
 		return username;
 	}
@@ -70,6 +73,12 @@ public class User {
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public boolean isActivated() {
+		return activated;
+	}
+	public void setActivated(boolean activated) {
+		this.activated = activated;
 	}
 	
 }
