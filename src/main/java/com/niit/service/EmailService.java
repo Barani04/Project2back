@@ -29,9 +29,16 @@ public class EmailService {
 			helper = new MimeMessageHelper(mimeMsg, false, "utf-8");
 			StringBuilder htmlMsg = new StringBuilder();
 			
-			htmlMsg.append("<h1>Welcome"+user.getFirstname()+" "+user.getLastname()+"!</h1>");
-			htmlMsg.append("<p>Your account has been activated!</p><br/>");
-			htmlMsg.append("<p>Thanks For joining with us!</p><br/>");
+			htmlMsg.append("<p>Welcome  <span style='color:teal;font-size:20px;'>"+user.getFirstname()+"...!</span></p>");
+			htmlMsg.append("<b style='font-size:18px;text-align: justify;margin-left:30px;color:black;'>Your account has been activated!</b><br/>");
+			htmlMsg.append("<p style='text-align: justify;font-size:18px;margin-left:30px;color:black;'>Your Login Credentials...</p>");
+			htmlMsg.append("<p style='text-align: justify;font-size:15px;margin-left:30px;color:black;'><b>UserName:</b>"+user.getUsername()+"</p>");
+			htmlMsg.append("<p style='text-align: justify;font-size:15px;margin-left:30px;color:black;'><b>Password:</b>"+user.getPassword()+"</p>");
+			htmlMsg.append("<p style='text-align: justify;font-size:18px;margin-left:30px;color:black;'> Thanks For joining with us! </p><br/>");
+			htmlMsg.append("<br/><br/><br/><br/>");
+			htmlMsg.append("<span style='font-size:18px;color:black;'>Regards,</span><br/><br/><span style='font-size:20px;color:black;'>EDUHUB Corp</span><br/>");
+			
+			
 			
 			mimeMsg.setContent(htmlMsg.toString(), "text/html");
 			
