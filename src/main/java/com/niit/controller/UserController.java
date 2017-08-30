@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.niit.dao.UserDao;
-import com.niit.model.Error;
 import com.niit.model.User;
 import com.niit.service.EmailService;
+import com.niit.service.Error;
 
 @Controller
 public class UserController {

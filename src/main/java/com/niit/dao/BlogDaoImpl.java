@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.niit.model.Blog;
+import com.niit.model.BlogComment;
 
 @Repository
 @Transactional
@@ -42,6 +43,19 @@ public class BlogDaoImpl implements BlogDao {
 		Session session = sessionFactory.getCurrentSession();
 		session.update(blog);
 		
+	}
+
+	public void addBlogComment(BlogComment bc) {
+		Session session = sessionFactory.getCurrentSession();
+		session.save(bc);
+		
+	}
+
+	public List<BlogComment> getAllBlogComments(int blogId) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from BlogComment where blog.bid=?");
+		query.setInteger(0,blogId);
+		return query.list();
 	}
 
 }

@@ -24,19 +24,19 @@ public class EmailService {
 		MimeMessage mimeMsg = mailSender.createMimeMessage();
 		
 		MimeMessageHelper helper =null;
-		
 		try{
 			helper = new MimeMessageHelper(mimeMsg, false, "utf-8");
 			StringBuilder htmlMsg = new StringBuilder();
 			
-			htmlMsg.append("<p>Welcome  <span style='color:teal;font-size:20px;'>"+user.getFirstname()+"...!</span></p>");
+			htmlMsg.append("<p style='font-size:20px;color:black;'>Welcome "+user.getFirstname()+"...!</p>");
 			htmlMsg.append("<b style='font-size:18px;text-align: justify;margin-left:30px;color:black;'>Your account has been activated!</b><br/>");
 			htmlMsg.append("<p style='text-align: justify;font-size:18px;margin-left:30px;color:black;'>Your Login Credentials...</p>");
 			htmlMsg.append("<p style='text-align: justify;font-size:15px;margin-left:30px;color:black;'><b>UserName:</b>"+user.getUsername()+"</p>");
 			htmlMsg.append("<p style='text-align: justify;font-size:15px;margin-left:30px;color:black;'><b>Password:</b>"+user.getPassword()+"</p>");
+			htmlMsg.append("<p style='text-align: justify;font-size:18px;margin-left:30px;color:black;'>Login to your account: <a style='text-decoration:none;' href="+"http://localhost:8081/Project2Front/#!/login"+">Login</a></p><br/>");
 			htmlMsg.append("<p style='text-align: justify;font-size:18px;margin-left:30px;color:black;'> Thanks For joining with us! </p><br/>");
-			htmlMsg.append("<br/><br/><br/><br/>");
-			htmlMsg.append("<span style='font-size:18px;color:black;'>Regards,</span><br/><br/><span style='font-size:20px;color:black;'>EDUHUB Corp</span><br/>");
+			htmlMsg.append("<br/><br/>");
+			htmlMsg.append("<span style='font-size:18px;color:black;'>Regards,</span><br/><span style='font-size:18px;color:black;'>EDUHUB Corp</span><br/>");
 			
 			
 			

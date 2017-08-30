@@ -17,9 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.niit.dao.BlogDao;
 import com.niit.dao.UserDao;
 import com.niit.model.Blog;
-import com.niit.model.Error;
+import com.niit.model.BlogComment;
 import com.niit.model.User;
 import com.niit.service.EmailService;
+import com.niit.service.Error;
 
 @Controller
 public class BlogController {
@@ -85,5 +86,36 @@ public class BlogController {
 		blogdao.updateBlog(blog);
 		emailService.approvedBlogsNotify(blog);
 		return new ResponseEntity<Blog>(blog,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/addblogcomment",method=RequestMethod.POST)
+	public ResponseEntity<?> addBlogComment(@RequestBody BlogComment bc,HttpSession session){
+		if(session.getAttribute("username")==null){
+			Error error = new Error(5, "Unauthorized User");
+			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
+		}
+		String username = (String) session.getAttribute("username");
+		User user = userdao.getUserByUsername(username);
+		bc.setCommentedBy(user);
+		bc.setCommentedOn(new Date());
+		try{
+			blogdao.addBlogComment(bc);
+			return new ResponseEntity<BlogComment>(bc,HttpStatus.OK);
+		}catch(Exception e){
+			Error error = new Error(7,"Unable to add Comment");
+			return new ResponseEntity<Error>(error,HttpStatus.INTERNAL_SERVER_ERROR);
+			
+		}
+	}
+	
+	@RequestMapping(value="/getallblogcomments/{bid}")
+	public ResponseEntity<?> getAllBlogComments(@PathVariable int bid,HttpSession session) {
+		if(session.getAttribute("username")==null){
+			Error error = new Error(5, "Unauthorized User");
+			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
+		}
+		List<BlogComment> blogComments = blogdao.getAllBlogComments(bid);
+		return new ResponseEntity<List<BlogComment>>(blogComments,HttpStatus.OK);
+		
 	}
 }

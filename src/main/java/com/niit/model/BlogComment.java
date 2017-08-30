@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -29,6 +30,9 @@ public class BlogComment {
 	
 	@Temporal(javax.persistence.TemporalType.DATE)
 	private Date commentedOn;
+	
+	@Lob
+	private String commentText;
 
 	public int getId() {
 		return id;
@@ -61,4 +65,13 @@ public class BlogComment {
 	public void setCommentedOn(Date commentedOn) {
 		this.commentedOn = commentedOn;
 	}
+
+	public String getCommentText() {
+		return commentText;
+	}
+
+	public void setCommentText(String commentText) {
+		this.commentText = commentText;
+	}
+
 }
