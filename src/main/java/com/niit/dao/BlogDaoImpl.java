@@ -51,6 +51,7 @@ public class BlogDaoImpl implements BlogDao {
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<BlogComment> getAllBlogComments(int blogId) {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("from BlogComment where blog.bid=?");
